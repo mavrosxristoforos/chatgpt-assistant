@@ -17,7 +17,7 @@ jobs:
       id: jxbuild
       uses: mavrosxristoforos/jxb@1.0.1
       with:
-        build-file: 'build_rapid_contact.jxb'
+        build-file: 'build.jxb'
     - name: Get XML
       id: getxml
       uses: mavrosxristoforos/get-xml-info@1.1.1
