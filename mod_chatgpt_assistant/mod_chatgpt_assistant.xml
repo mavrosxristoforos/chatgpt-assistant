@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="4.0" type="module" client="site" method="upgrade">
+    <name>ChatGPT Assistant</name>
+    <author>Christopher Mavros</author>
+    <creationDate>June 2023</creationDate>
+    <copyright>Copyright (C) 2020 Christopher Mavros. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <authorEmail>mavrosxristoforos@gmail.com</authorEmail>
+    <authorUrl>https://mavrosxristoforos.com/</authorUrl>
+<version>1.0.92</version>
+    <description>The ChatGPT Assistant module provides an interactive chat interface powered by OpenAI's GPT-3.5 model. Engage in natural language conversations with the AI assistant to get answers, assistance, and personalized responses. Simply click the chat button to open the interface and start chatting with the assistant. This module requires a valid OpenAI API key for integration with the powerful language model. Experience the convenience and power of AI-driven conversations with the ChatGPT Assistant module. Partially written using ChatGPT!</description>
+    <files>
+        <folder>tmpl</folder>
+        <folder>fields</folder>
+        <filename module="mod_chatgpt_assistant">mod_chatgpt_assistant.php</filename>
+        <filename>helper.php</filename>
+    </files>
+    <media destination="mod_chatgpt_assistant" folder="media">
+        <folder>js</folder>
+        <folder>css</folder>
+    </media>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_chatgpt_assistant.ini</language>
+    </languages>
+    <updateservers>
+        <server type="extension" priority="1" name="ChatGPT Assistant Updates">https://mavrosxristoforos.com/index.php?option=com_extensionupdater&amp;extension=chatgpt_assistant</server>
+    </updateservers>
+    <config>
+        <fields name="params" addfieldpath="/modules/mod_chatgpt_assistant/fields">
+            <fieldset name="basic">
+                <field name="openai_api_key" type="text" default="" label="MOD_CHATGPT_ASSISTANT_OPENAI_API_KEY_LBL" description="MOD_CHATGPT_ASSISTANT_OPENAI_API_KEY_DESC" />
+                <field name="pricing_disclaimer" type="customlabel" label="" hint="MOD_CHATGPT_ASSISTANT_PRICING_DISCLAIMER_TEXT"/>
+                <field name="chat_limit" type="number" default="10" label="MOD_CHATGPT_ASSISTANT_CHAT_LIMIT_LBL" description="MOD_CHATGPT_ASSISTANT_CHAT_LIMIT_DESC" />
+            </fieldset>
+            <fieldset name="view" label="MOD_CHATGPT_ASSISTANT_FIELDSET_VIEW_LBL">
+                <field name="button_pos" type="list" default="floating_right" label="MOD_CHATGPT_ASSISTANT_BUTTON_POS_LBL" description="MOD_CHATGPT_ASSISTANT_BUTTON_POS_DESC">
+                    <option value="inline">MOD_CHATGPT_ASSISTANT_BUTTON_POS_INLINE</option>
+                    <option value="floating-right">MOD_CHATGPT_ASSISTANT_BUTTON_POS_FLOATING_RIGHT</option>
+                    <option value="floating-left">MOD_CHATGPT_ASSISTANT_BUTTON_POS_FLOATING_LEFT</option>
+                </field>
+                <field name="button_icon" type="text" default="fas fa-comments" label="MOD_CHATGPT_ASSISTANT_BUTTON_ICON_LBL" description="MOD_CHATGPT_ASSISTANT_BUTTON_ICON_DESC"/>
+            </fieldset>
+            <fieldset name="text" label="MOD_CHATGPT_ASSISTANT_FIELDSET_TEXT_LBL">
+                <field name="initial_system_message" type="editor" filter="raw" default="Hello and welcome to our chat! How may I help you today?" label="MOD_CHATGPT_ASSISTANT_INITIAL_SYSTEM_MESSAGE_LBL" description="MOD_CHATGPT_ASSISTANT_INITIAL_SYSTEM_MESSAGE_DESC"/>
+                <field name="limit_reach_warning" type="editor" filter="raw" default="System: We appreciate your questions. However, we would like to inform you that you have 1 more message to reach the maximum limit of messages to our automated assistant. If you need further assistance, please feel free to use our contact form. We are more than happy to help you there." label="MOD_CHATGPT_ASSISTANT_LIMIT_REACH_WARNING_LBL" description="MOD_CHATGPT_ASSISTANT_LIMIT_REACH_WARNING_DESC"/>
+                <field name="limit_reach_error" type="editor" filter="raw" default="System: Thank you for your questions! However, you have reached the maximum limit of messages to our automated assistant. If you need further assistance, please feel free to use our contact form. We are more than happy to help you there." label="MOD_CHATGPT_ASSISTANT_LIMIT_REACH_WARNING_LBL" description="MOD_CHATGPT_ASSISTANT_LIMIT_REACH_WARNING_DESC"/>
+            </fieldset>
+            <fieldset name="model" label="MOD_CHATGPT_ASSISTANT_FIELDSET_MODEL_LBL">
+                <field name="openai_api_endpoint" type="text" default="https://api.openai.com/v1/chat/completions" label="MOD_CHATGPT_ASSISTANT_OPENAI_API_ENDPOINT_LBL" description="MOD_CHATGPT_ASSISTANT_OPENAI_API_ENDPOINT_DESC"/>
+                <field name="initial_model_instruction" type="textarea" default="You are a helpful assistant." label="MOD_CHATGPT_ASSISTANT_INITIAL_MODEL_INSTRUCTION_LBL" description="MOD_CHATGPT_ASSISTANT_INITIAL_MODEL_INSTRUCTION_DESC"/>
+                <field name="chat_model" type="list" default="gpt-3.5-turbo" label="MOD_CHATGPT_ASSISTANT_CHAT_MODEL_LBL" description="MOD_CHATGPT_ASSISTANT_CHAT_MODEL_DESC">
+                    <option value="gpt-4">gpt-4</option>
+                    <option value="gpt-4-0613">gpt-4-0613</option>
+                    <option value="gpt-4-32k">gpt-4-32k</option>
+                    <option value="gpt-4-32k-0613">gpt-4-32k-0613</option>
+                    <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                    <option value="gpt-3.5-turbo-0613">gpt-3.5-turbo-0613</option>
+                    <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
+                    <option value="gpt-3.5-turbo-16k-0613">gpt-3.5-turbo-16k-0613</option>
+                </field>
+                <field name="max_tokens" type="number" default="50" label="MOD_CHATGPT_ASSISTANT_MAX_TOKENS_LBL" description="MOD_CHATGPT_ASSISTANT_MAX_TOKENS_DESC" step="1" min="1"/>
+                <field name="temperature" type="number" default="0.7" label="MOD_CHATGPT_ASSISTANT_TEMPERATURE_LBL" description="MOD_CHATGPT_ASSISTANT_TEMPERATURE_DESC" step="0.01" min="0"/>
+                <field name="user_message_format" type="textarea" default="%s" label="MOD_CHATGPT_ASSISTANT_USER_MESSAGE_FORMAT_LBL" description="MOD_CHATGPT_ASSISTANT_USER_MESSAGE_FORMAT_DESC"/>
+                <field name="assistant_response_format" type="textarea" default="%s" label="MOD_CHATGPT_ASSISTANT_ASSISTANT_RESPONSE_FORMAT_LBL" description="MOD_CHATGPT_ASSISTANT_ASSISTANT_RESPONSE_FORMAT_DESC"/>
+                <field name="limit_reach_instruction" type="textarea" default="This is your penultimate response. Kindly ask the user to use the contact form for further assistance." label="MOD_CHATGPT_ASSISTANT_LIMIT_REACH_INSTRUCTION_LBL" description="MOD_CHATGPT_ASSISTANT_LIMIT_REACH_INSTRUCTION_DESC"/>
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="moduleclass_sfx" type="text" default="" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"/>
+                <field name="load_css" type="radio" class="btn-group btn-group-yesno" default="1" label="MOD_CHATGPT_ASSISTANT_LOAD_CSS_LBL" description="MOD_CHATGPT_ASSISTANT_LOAD_CSS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="custom_css" type="textarea" default="" label="MOD_CHATGPT_ASSISTANT_CUSTOM_CSS_LBL" description="MOD_CHATGPT_ASSISTANT_CUSTOM_CSS_DESC"/>
+                <field name="include_fontawesome" type="radio" class="btn-group btn-group-yesno" default="1" label="MOD_CHATGPT_ASSISTANT_INCLUDE_FONTAWESOME_LBL" description="MOD_CHATGPT_ASSISTANT_INCLUDE_FONTAWESOME_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="fontawesome_cdn" type="text" default="https://use.fontawesome.com/releases/v5.0.10/css/all.css" label="MOD_CHATGPT_ASSISTANT_FONTAWESOME_CDN_LBL" description="MOD_CHATGPT_ASSISTANT_FONTAWESOME_CDN_DESC" showon="include_fontawesome:1"/>
+                <field name="curl_opt_timeout" type="number" default="120" label="MOD_CHATGPT_ASSISTANT_CURL_OPT_TIMEOUT_LBL" description="MOD_CHATGPT_ASSISTANT_CURL_OPT_TIMEOUT_DESC"/>
+                <field name="cache" type="list" default="0" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC">
+                    <option value="1">JGLOBAL_USE_GLOBAL</option>
+                    <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

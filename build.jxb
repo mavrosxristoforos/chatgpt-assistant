@@ -1,0 +1,5 @@
+MINIFY:mod_chatgpt_assistant/media/css/style.css mod_chatgpt_assistant/media/css/style.min.css
+MINIFY:mod_chatgpt_assistant/media/js/script.js mod_chatgpt_assistant/media/js/script.min.js
+INCVERSION:mod_chatgpt_assistant/mod_chatgpt_assistant.xml
+DELETE:mod_chatgpt_assistant.zip
+ZIPDIR:mod_chatgpt_assistant

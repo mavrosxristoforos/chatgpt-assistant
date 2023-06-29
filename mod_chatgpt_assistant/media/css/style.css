@@ -1,0 +1,76 @@
+/*------------------------------------------------------------------------
+# mod_chatgpt_assistant - ChatGPT Assistant
+# ------------------------------------------------------------------------
+# author    Christopher Mavros - Mavrosxristoforos.com
+# copyright Copyright (C) 2011 Mavrosxristoforos.com. All Rights Reserved.
+# @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+# Websites: https://mavrosxristoforos.com
+# Technical Support:  Forum - https://mavrosxristoforos.com/support/forum
+-------------------------------------------------------------------------*/
+
+:root {
+    --ca-button-size: 50px;
+    --ca-button-bottom: 20px;
+    --ca-button-side: 20px;
+    --ca-interface-width: 300px;
+    --ca-interface-height: 400px;
+}
+
+/* Style for chat button */
+#chatgpt_assistant_button { width: var(--ca-button-size); height: var(--ca-button-size); border-radius: 50%; background-color: #007bff; color: #fff; font-size: 24px; display: flex; justify-content: center; align-items: center; transition: all 300ms ease 0ms; cursor: pointer; }
+
+#chatgpt_assistant_button:hover { background-color: #3498db; }
+
+.ca-button-pos-floating-right { position: fixed; bottom: var(--ca-button-bottom); right: var(--ca-button-side); z-index: 9999; }
+.ca-button-pos-floating-left { position: fixed; bottom: var(--ca-button-bottom); left: var(--ca-button-side); z-index: 9999; }
+
+/* Style for chat interface */
+#chatgpt_assistant_interface { display: none; position: fixed; bottom: calc(var(--ca-button-size) + var(--ca-button-bottom) + 10px); right: var(--ca-button-side); width: var(--ca-interface-width); max-width: calc(90% - var(--ca-button-side) - var(--ca-button-side)); height: var(--ca-interface-height); max-height: calc(80% - var(--ca-button-size) - var(--ca-button-bottom)); background-color: #fff; border: 1px solid #ccc; overflow: hidden; z-index: 99999; }
+.ca-button-pos-inline + #chatgpt_assistant_interface { position: static; }
+.ca-button-pos-floating-left + #chatgpt_assistant_interface { right: initial; left: var(--ca-button-side); }
+
+/* Style for conversation container */
+.chatgpt_assistant_wrapper .conversation-container { padding: 10px; overflow-y: auto; flex: 1 0 0; }
+.chatgpt_assistant_interface_wrapper { display: flex; flex-flow: column; height: 100% !important; }
+
+/* Style for individual chat messages */
+.chatgpt_assistant_wrapper .conversation-container .message_wrapper { margin-bottom: 10px; }
+.chatgpt_assistant_wrapper .conversation-container .message { padding: 5px 10px; border-radius: 5px; float: left; }
+.chatgpt_assistant_wrapper .conversation-container .message_wrapper::after { display: block; clear: both; content: ""; }
+.chatgpt_assistant_wrapper .conversation-container .sent-message { background-color: #007bff; color: #fff; float: right; }
+.chatgpt_assistant_wrapper .conversation-container .received-message, .chatgpt_assistant_wrapper .conversation-container .pending-message { background-color: #f1f1f1; color: #333; float: left; }
+.chatgpt_assistant_wrapper .conversation-container .error-message { background-color: #c62828; color: #fff; float: left; }
+.chatgpt_assistant_wrapper .conversation-container .warning-message { background-color: #ff5722; color: #fff; }
+.chatgpt_assistant_wrapper .conversation-container .error-message p, .chatgpt_assistant_wrapper .conversation-container .warning-message p { margin: 0; }
+
+/* Style for input */
+.chatgpt_assistant_wrapper .input-container { padding: 10px; border-top: 1px solid #ccc; display: flex; flex-flow: column; gap: 0.5em; }
+.chatgpt_assistant_wrapper .input-container input { margin: 0; width: 100%; box-sizing: border-box; padding: 15px 5px; }
+.chatgpt_assistant_wrapper .input-container button { width: 100%; }
+@media(min-width:500px) {
+    .chatgpt_assistant_wrapper .input-container { flex-flow: row; gap: 0; }
+.chatgpt_assistant_wrapper .input-container input { margin: 0; border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important; }
+.chatgpt_assistant_wrapper .input-container button { border-top-left-radius: 0px !important; border-bottom-left-radius: 0px !important; width: inherit; }
+}
+
+/* Based on Dot typing from https://github.com/nzbin/three-dots. Thanks!!! */
+.ca-dot-typing-wrapper { width: 21px; height: 20px; display: flex; align-items: center; justify-content: center; }
+.ca-dot-typing { position: relative; left: -9999px; width: 5px; height: 5px; border-radius: 5px; background-color: #333; color: #333; box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; animation: ca-dot-typing 3.75s infinite linear; }
+@keyframes ca-dot-typing {
+  0% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+  5.555% { box-shadow: 9991px -5px 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+  11.111% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+  16.667% { box-shadow: 9991px 0 0 0 #333, 9999px -5px 0 0 #333, 10007px 0 0 0 #333; }
+  22.222% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+  27.777% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px -5px 0 0 #333; }
+  33.333% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+
+  38.887% { box-shadow: 9991px -5px 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+  44.444% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+  50% { box-shadow: 9991px 0 0 0 #333, 9999px -5px 0 0 #333, 10007px 0 0 0 #333; }
+  55.555% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+  61.107% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px -5px 0 0 #333; }
+  66.667% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+
+  100% { box-shadow: 9991px 0 0 0 #333, 9999px 0 0 0 #333, 10007px 0 0 0 #333; }
+}
