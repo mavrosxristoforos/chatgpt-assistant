@@ -127,6 +127,12 @@ class ModChatgptAssistantHelper {
       }
     }
 
+    if ((isset($responseData['error'])) && ($mod_params->get('show_debug', 0))) {
+      $responseData['requestPayload'] = $requestPayload;
+      $responseData['curlResponse'] = $response;
+      $responseData['fullError'] = $err;
+    }
+
     return $responseData;
   }
 
