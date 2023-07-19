@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
     <authorEmail>mavrosxristoforos@gmail.com</authorEmail>
     <authorUrl>https://mavrosxristoforos.com/</authorUrl>
-<version>1.0.92</version>
+<version>1.0.97</version>
     <description>The ChatGPT Assistant module provides an interactive chat interface powered by OpenAI's GPT-3.5 model. Engage in natural language conversations with the AI assistant to get answers, assistance, and personalized responses. Simply click the chat button to open the interface and start chatting with the assistant. This module requires a valid OpenAI API key for integration with the powerful language model. Experience the convenience and power of AI-driven conversations with the ChatGPT Assistant module. Partially written using ChatGPT!</description>
     <files>
         <folder>tmpl</folder>
@@ -77,6 +77,10 @@
                 </field>
                 <field name="fontawesome_cdn" type="text" default="https://use.fontawesome.com/releases/v5.0.10/css/all.css" label="MOD_CHATGPT_ASSISTANT_FONTAWESOME_CDN_LBL" description="MOD_CHATGPT_ASSISTANT_FONTAWESOME_CDN_DESC" showon="include_fontawesome:1"/>
                 <field name="curl_opt_timeout" type="number" default="120" label="MOD_CHATGPT_ASSISTANT_CURL_OPT_TIMEOUT_LBL" description="MOD_CHATGPT_ASSISTANT_CURL_OPT_TIMEOUT_DESC"/>
+                <field name="show_debug" type="radio" class="btn-group btn-group-yesno" default="0" label="MOD_CHATGPT_ASSISTANT_SHOW_DEBUG_LBL" description="MOD_CHATGPT_ASSISTANT_SHOW_DEBUG_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
                 <field name="cache" type="list" default="0" label="COM_MODULES_FIELD_CACHING_LABEL" description="COM_MODULES_FIELD_CACHING_DESC">
                     <option value="1">JGLOBAL_USE_GLOBAL</option>
                     <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>

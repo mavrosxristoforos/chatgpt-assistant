@@ -55,7 +55,7 @@ jQuery(document).ready(function(jQuery) {
 
       // Perform Ajax request to send the message to the server
       jQuery.ajax({
-        url: "index.php?option=com_ajax&module=chatgpt_assistant&method=sendMessage&format=json",
+        url: Joomla.getOptions("system.paths").base+"/index.php?option=com_ajax&module=chatgpt_assistant&method=sendMessage&format=json",
         method: "POST",
         data: { message: message, module_id: jQuery('.chatgpt_assistant_wrapper').data('moduleId') },
         success: function(response) {
