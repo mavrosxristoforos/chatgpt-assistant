@@ -10,6 +10,8 @@
 -------------------------------------------------------------------------*/
 defined('JPATH_BASE') or die;
 
+use \Joomla\CMS\Language\Text;
+
 jimport('joomla.form.helper');
 jimport('joomla.form.formfield');
 jimport('joomla.html.html');
@@ -19,7 +21,7 @@ jimport('joomla.html.html');
  *
  * @since  1.6
  */
-class JFormFieldCustomLabel extends JFormField
+class JFormFieldCustomLabel extends \Joomla\CMS\Form\FormField
 {
   /**
    * The form field type.
@@ -30,6 +32,6 @@ class JFormFieldCustomLabel extends JFormField
   protected $type = 'customlabel';
 
   public function getInput() {
-    return JText::_($this->hint);
+    return Text::_($this->hint);
   }
 }

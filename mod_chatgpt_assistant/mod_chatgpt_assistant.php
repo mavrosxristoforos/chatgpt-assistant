@@ -10,7 +10,9 @@
 -------------------------------------------------------------------------*/
 defined('_JEXEC') or die;
 
+use \Joomla\CMS\Helper\ModuleHelper;
+
 require_once dirname(__FILE__) . '/helper.php';
 $helper = new ModChatgptAssistantHelper();
 
-require JModuleHelper::getLayoutPath('mod_chatgpt_assistant');
+require ModuleHelper::getLayoutPath('mod_chatgpt_assistant');

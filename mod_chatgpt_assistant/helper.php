@@ -10,8 +10,10 @@
 -------------------------------------------------------------------------*/
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Response\JsonResponse;
+use \Joomla\CMS\Factory;
+use \Joomla\CMS\Response\JsonResponse;
+use \Joomla\CMS\Language\Text;
+use \Joomla\Registry\Registry;
 
 class ModChatgptAssistantHelper {
 
@@ -20,24 +22,24 @@ class ModChatgptAssistantHelper {
     $input = Factory::getApplication()->input;
     $message = $input->get('message', '', 'string');
 
-    $lang = JFactory::getApplication()->getLanguage();
+    $lang = Factory::getApplication()->getLanguage();
     $lang->load('mod_chatgpt_assistant', JPATH_BASE);
 
     $moduleId = $input->get('module_id', -1, 'int');
     if ($moduleId > 0) {
-      $db = JFactory::getDBO();
+      $db = Factory::getDBO();
       $paramstring = $db->setQuery('SELECT `params` FROM `#__modules` WHERE `id` = "'.$db->escape($moduleId).'"')->loadResult();
-      $mod_params = ($paramstring) ? new JRegistry($paramstring) : new JRegistry();
+      $mod_params = ($paramstring) ? new Registry($paramstring) : new Registry();
     }
     else {
-      print json_encode(array('error'=>JText::_('MOD_CHATGPT_ASSISTANT_MODULE_NOT_FOUND')));
+      print json_encode(array('error'=>Text::_('MOD_CHATGPT_ASSISTANT_MODULE_NOT_FOUND')));
       return;
     }
 
     // Your OpenAI API credentials
     $openaiApiKey = $mod_params->get('openai_api_key', '');
 
-    $session = JFactory::getSession();
+    $session = Factory::getSession();
     $messages = $session->get('chatgpt_assistant_messages', array(['role' => 'system', 'content' => $mod_params->get('initial_model_instruction', 'You are a helpful assistant.')]));
 
     $messages[] = ['role' => 'user', 'content' => sprintf($mod_params->get('user_question_format', '%s'), $message)];
@@ -109,20 +111,20 @@ class ModChatgptAssistantHelper {
       // Handle the OpenAI API response
       if ($err) {
           // Error occurred during the API request
-          $responseData['error'] = sprintf(JText::_('MOD_CHATGPT_ASSISTANT_API_ERROR_OCCURRED'), $err);
+          $responseData['error'] = sprintf(Text::_('MOD_CHATGPT_ASSISTANT_API_ERROR_OCCURRED'), $err);
       } else {
           // Decode the API response
           $apiResponse = json_decode($response, true);
           $responseData['apiResponse'] = $apiResponse;
 
           if (isset($apiResponse['error']['message'])) {
-            $responseData['error'] = sprintf(JText::_('MOD_CHATGPT_ASSISTANT_API_ERROR_OCCURRED'), $apiResponse['error']['message']);
+            $responseData['error'] = sprintf(Text::_('MOD_CHATGPT_ASSISTANT_API_ERROR_OCCURRED'), $apiResponse['error']['message']);
           } else if (isset($apiResponse['choices'][0]['message'])) {
               $messages[] = $apiResponse['choices'][0]['message'];
               $session->set('chatgpt_assistant_messages', $messages);
               $responseData['output'] = sprintf($mod_params->get('assistant_response_format', '%s'), $apiResponse['choices'][0]['message']['content']);
           } else {
-              $responseData['error'] = JText::_('MOD_CHATGPT_ASSISTANT_UNABLE_TO_GET_VALID_RESPONSE');
+              $responseData['error'] = Text::_('MOD_CHATGPT_ASSISTANT_UNABLE_TO_GET_VALID_RESPONSE');
           }
       }
     }

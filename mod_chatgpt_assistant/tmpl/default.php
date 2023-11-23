@@ -10,17 +10,18 @@
 -------------------------------------------------------------------------*/
 defined('_JEXEC') or die;
 
-// Include the Joomla JHTMLHelper class
-JLoader::register('JHtml', JPATH_LIBRARIES . '/cms/html/html.php');
+use \Joomla\CMS\Factory;
+use \Joomla\CMS\Language\Text;
+use \Joomla\CMS\HTML\HTMLHelper;
 
 // Load jQuery and module's JavaScript file
-JHtml::_('jquery.framework');
-JHtml::script('media/mod_chatgpt_assistant/js/script.min.js');
+HTMLHelper::_('jquery.framework');
+HTMLHelper::script('media/mod_chatgpt_assistant/js/script.min.js');
 
-$document = JFactory::getDocument();
+$document = Factory::getDocument();
 if ($params->get('load_css', '1')) {
   // Add CSS styles for the chat button and interface
-  JHtml::stylesheet('media/mod_chatgpt_assistant/css/style.min.css');
+  HTMLHelper::stylesheet('media/mod_chatgpt_assistant/css/style.min.css');
 }
 
 if ($params->get('include_fontawesome', '1')) {
@@ -31,10 +32,10 @@ if ($params->get('custom_css', '') != '') {
 }
 
 foreach(['MOD_CHATGPT_ASSISTANT_NO_DATA_PROPERTY_IN_RESPONSE', 'MOD_CHATGPT_ASSISTANT_SOMETHING_WENT_WRONG', 'MOD_CHATGPT_ASSISTANT_NO_OUTPUT_PROPERTY_IN_RESPONSE'] as $ls) {
-  JText::script($ls);
+  Text::script($ls);
 }
 
-$session = JFactory::getSession();
+$session = Factory::getSession();
 $messages = $session->get('chatgpt_assistant_messages', array(['role' => 'system', 'content' => $params->get('initial_model_instruction', 'You are a helpful assistant.')]));
 
 $document->addScriptOptions('mod_chatgpt_assistant', array('initial_system_message'=>$params->get('initial_system_message', 'Hello and welcome to our chat! How may I help you today?')));
@@ -43,7 +44,7 @@ $document->addScriptOptions('mod_chatgpt_assistant', array('initial_system_messa
 
 <div class="chatgpt_assistant_wrapper" data-module-id="<?php print $module->id; ?>">
     <div id="chatgpt_assistant_button" class="chat-button ca-button-pos-<?php print $params->get('button_pos', 'floating-right'); ?>">
-        <i class="button-icon <?php print $params->get('button_icon', 'fas fa-comments'); ?>" title="<?php print JText::_('MOD_CHATGPT_ASSISTANT_BUTTON_LABEL'); ?>"></i>
+        <i class="button-icon <?php print $params->get('button_icon', 'fas fa-comments'); ?>" title="<?php print Text::_('MOD_CHATGPT_ASSISTANT_BUTTON_LABEL'); ?>"></i>
     </div>
 
     <div id="chatgpt_assistant_interface" class="chat-interface" style="display: none;">
@@ -65,8 +66,8 @@ $document->addScriptOptions('mod_chatgpt_assistant', array('initial_system_messa
                 } ?>
             </div>
             <div class="input-container input-group">
-                <input type="text" id="ca_message" class="form-control" placeholder="<?php print JText::_('MOD_CHATGPT_ASSISTANT_PLACEHOLDER'); ?>" autofocus/>
-                <button class="btn btn-primary"><?php print JText::_('MOD_CHATGPT_ASSISTANT_SEND_BUTTON'); ?></button>
+                <input type="text" id="ca_message" class="form-control" placeholder="<?php print Text::_('MOD_CHATGPT_ASSISTANT_PLACEHOLDER'); ?>" autofocus/>
+                <button class="btn btn-primary"><?php print Text::_('MOD_CHATGPT_ASSISTANT_SEND_BUTTON'); ?></button>
             </div>
           </div>
     </div>
