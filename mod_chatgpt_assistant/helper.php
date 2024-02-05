@@ -77,13 +77,16 @@ class ModChatgptAssistantHelper {
 
       // Create the request payload for the OpenAI API
       $requestPayload = [
-          'model' => $mod_params->get('chat_model', 'gpt-3.5-turbo'),
           'messages' => $messages,
           'max_tokens' => (int) $mod_params->get('max_tokens', 50),
           'temperature' => (float) $mod_params->get('temperature', 0.7),
           'n' => 1, // Adjust the number of responses to generate
           'stop' => ['\n'] // Specify the stopping condition for the response generation
       ];
+
+      if ($mod_params->get('include_model', '1')) {
+        $requestPayload['model'] = $mod_params->get('chat_model', 'gpt-3.5-turbo');
+      }
 
       // Make a POST request to the OpenAI API
       $curl = curl_init();
