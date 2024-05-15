@@ -25,7 +25,7 @@
 .ca-button-pos-floating-left { position: fixed; bottom: var(--ca-button-bottom); left: var(--ca-button-side); z-index: 9999; }
 
 /* Style for chat interface */
-#chatgpt_assistant_interface { display: none; position: fixed; bottom: calc(var(--ca-button-size) + var(--ca-button-bottom) + 10px); right: var(--ca-button-side); width: var(--ca-interface-width); max-width: calc(90% - var(--ca-button-side) - var(--ca-button-side)); height: var(--ca-interface-height); max-height: calc(80% - var(--ca-button-size) - var(--ca-button-bottom)); background-color: #fff; border: 1px solid #ccc; overflow: hidden; z-index: 99999; }
+#chatgpt_assistant_interface { display: none; position: fixed; bottom: calc(var(--ca-button-size) + var(--ca-button-bottom) + 10px); right: var(--ca-button-side); width: var(--ca-interface-width); max-width: calc(90% - var(--ca-button-side) - var(--ca-button-side)); height: var(--ca-interface-height); max-height: calc(80% - var(--ca-button-size) - var(--ca-button-bottom)); background-color: #fff; border: 1px solid #ccc; overflow: hidden; z-index: 99999; box-shadow: 0 0 10px #ccc; }
 .ca-button-pos-inline + #chatgpt_assistant_interface { position: static; }
 .ca-button-pos-floating-left + #chatgpt_assistant_interface { right: initial; left: var(--ca-button-side); }
 
