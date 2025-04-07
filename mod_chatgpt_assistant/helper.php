@@ -85,7 +85,7 @@ class ModChatgptAssistantHelper {
       ];
 
       if ($mod_params->get('include_model', '1')) {
-        $requestPayload['model'] = $mod_params->get('chat_model', 'gpt-3.5-turbo');
+        $requestPayload['model'] = $mod_params->get('chat_model', 'gpt-4o');
       }
 
       // Make a POST request to the OpenAI API
