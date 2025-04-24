@@ -7,7 +7,7 @@
     <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
     <authorEmail>mavrosxristoforos@gmail.com</authorEmail>
     <authorUrl>https://mavrosxristoforos.com/</authorUrl>
-<version>1.0.108</version>
+<version>1.0.109</version>
     <description>The ChatGPT Assistant module provides an interactive chat interface powered by OpenAI's GPT-3.5 model. Engage in natural language conversations with the AI assistant to get answers, assistance, and personalized responses. Simply click the chat button to open the interface and start chatting with the assistant. This module requires a valid OpenAI API key for integration with the powerful language model. Experience the convenience and power of AI-driven conversations with the ChatGPT Assistant module. Partially written using ChatGPT!</description>
     <files>
         <folder>tmpl</folder>
@@ -52,16 +52,22 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
-                <field name="chat_model" type="list" default="gpt-4o" label="MOD_CHATGPT_ASSISTANT_CHAT_MODEL_LBL" description="MOD_CHATGPT_ASSISTANT_CHAT_MODEL_DESC" showon="include_model:1">
-                    <option value="gpt-4o">gpt-4o</option>
-                    <option value="gpt-4">gpt-4</option>
-                    <option value="gpt-4-0613">gpt-4-0613</option>
-                    <option value="gpt-4-32k">gpt-4-32k</option>
-                    <option value="gpt-4-32k-0613">gpt-4-32k-0613</option>
-                    <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-                    <option value="gpt-3.5-turbo-0613">gpt-3.5-turbo-0613</option>
-                    <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
-                    <option value="gpt-3.5-turbo-16k-0613">gpt-3.5-turbo-16k-0613</option>
+                <field name="chat_model" type="groupedlist" default="gpt-4o" label="MOD_CHATGPT_ASSISTANT_CHAT_MODEL_LBL" description="MOD_CHATGPT_ASSISTANT_CHAT_MODEL_DESC" showon="include_model:1">
+                    <group label="OpenAI">
+                        <option value="gpt-4o">gpt-4o</option>
+                        <option value="gpt-4">gpt-4</option>
+                        <option value="gpt-4-0613">gpt-4-0613</option>
+                        <option value="gpt-4-32k">gpt-4-32k</option>
+                        <option value="gpt-4-32k-0613">gpt-4-32k-0613</option>
+                        <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                        <option value="gpt-3.5-turbo-0613">gpt-3.5-turbo-0613</option>
+                        <option value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</option>
+                        <option value="gpt-3.5-turbo-16k-0613">gpt-3.5-turbo-16k-0613</option>
+                    </group>
+                    <group label="DeepSeek">
+                        <option value="deepseek-chat">DeepSeek-V3</option>
+                        <option value="deepseek-reasoner">DeepSeek-R1</option>
+                    </group>
                 </field>
                 <field name="max_tokens" type="number" default="50" label="MOD_CHATGPT_ASSISTANT_MAX_TOKENS_LBL" description="MOD_CHATGPT_ASSISTANT_MAX_TOKENS_DESC" step="1" min="1"/>
                 <field name="temperature" type="number" default="0.7" label="MOD_CHATGPT_ASSISTANT_TEMPERATURE_LBL" description="MOD_CHATGPT_ASSISTANT_TEMPERATURE_DESC" step="0.01" min="0"/>
